@@ -30,9 +30,3 @@ var convert = require('mysql-protobuf')
 var file = fs.readFileSync('schema.sql').toString()
 console.log(convert(file))
 ```
-
-
-### todo
-
-float
-double
