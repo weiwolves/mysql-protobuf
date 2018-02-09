@@ -28,7 +28,7 @@ module.exports = function (data) {
     var match = schema.match(/.*CREATE\s+TABLE\s+(IF\s+NOT\s+EXISTS)?[\s+]?([\S|\`]+).*/i);
     if (match) {
       var tableName = normalize(match[2])
-      tableName = tableName.substring(0,1).toUpperCase()+tableName.substring(1);
+      tableName = tableName.substring(0, 1).toUpperCase() + tableName.substring(1);
 
       var fields = schema.substring(schema.indexOf('(')).trim()
       fields = fields.replace(/^\(/g, '').replace(/\);?$/g, '')
@@ -99,18 +99,41 @@ function Field(data, tag) {
   // mysql
   var imap = '';
   if (typeof (tokens[1]) != "undefined") {
+
     if (tokens[1].indexOf('int') >= 0) {
-      imap = 'int32';
+      for (var v in tokens) {
+        if (tokens[v] == 'unsigned') {
+          imap = 'uin32';
+        }
+      }
+      imap = imap || 'int32';
     }
+
     if (tokens[1].indexOf('long') >= 0) {
-      imap = 'int64';
+      for (var v in tokens) {
+        if (tokens[v] == 'unsigned') {
+          imap = 'uint64';
+        }
+      }
+      imap = imap || 'int64';
     }
+
     if (tokens[1].indexOf('datetime') >= 0 || tokens[1].indexOf('timestamp') >= 0) {
       imap = 'string';
     }
-    if (tokens[1].indexOf('varchar') >= 0 ||  tokens[1].indexOf('text') >= 0) {
+
+    if (tokens[1].indexOf('float') >= 0 ) {
+      imap = 'float';
+    }
+
+    if (tokens[1].indexOf('double') >= 0 ) {
+      imap = 'double';
+    }
+
+    if (tokens[1].indexOf('varchar') >= 0 || tokens[1].indexOf('text') >= 0) {
       imap = 'string';
     }
+
   }
 
   field.type = imap || 'string'
