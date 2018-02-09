@@ -1,5 +1,9 @@
 # mysql-protobuf
 
+```
+npm install mysql-protobuf -g
+```
+
 
 ### CLI usage Example
 
