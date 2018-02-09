@@ -1,6 +1,6 @@
 {
   "name": "mysql-protobuf",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convert MySQL CREATE TABLE statements to .proto (Proto Buffers)",
   "main": "index.js",
   "scripts": {
