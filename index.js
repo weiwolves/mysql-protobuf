@@ -28,6 +28,8 @@ module.exports = function (data) {
     var match = schema.match(/.*CREATE\s+TABLE\s+(IF\s+NOT\s+EXISTS)?[\s+]?([\S|\`]+).*/i);
     if (match) {
       var tableName = normalize(match[2])
+      tableName = tableName.substring(0,1).toUpperCase()+tableName.substring(1);
+
       var fields = schema.substring(schema.indexOf('(')).trim()
       fields = fields.replace(/^\(/g, '').replace(/\);?$/g, '')
       result.messages.push(Message(tableName, fields))
