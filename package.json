@@ -1,7 +1,7 @@
 {
-  "name": "sql-protobuf",
-  "version": "1.0.1",
-  "description": "Convert SQL CREATE TABLE statements to .proto (Proto Buffers)",
+  "name": "mysql-protobuf",
+  "version": "1.0.2",
+  "description": "Convert MySQL CREATE TABLE statements to .proto (Proto Buffers)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,16 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/karissa/sql-protobuf.git"
+    "url": "https://github.com/graceshare/sql-protobuf.git"
   },
-  "author": "Karissa McKelvey <karissa@karissamck.com> (http://karissamck.com/)",
-  "license": "BSD-2",
-  "bugs": {
-    "url": "https://github.com/karissa/sql-protobuf/issues"
-  },
-  "homepage": "https://github.com/karissa/sql-protobuf",
+  "homepage": "https://github.com/graceshare/sql-protobuf",
   "dependencies": {
-    "protocol-buffers-schema": "^2.0.3",
+    "protocol-buffers-schema": "git+https://github.com/graceshare/protocol-buffers-schema.git",
     "tape": "^4.2.0"
   }
 }

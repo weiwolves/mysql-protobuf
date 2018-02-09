@@ -1,74 +1,46 @@
-# sql-protobuf
+# mysql-protobuf
 
-Convert a SQL CREATE TABLE statement into a protobuf schema.
-
-[![NPM](https://nodei.co/npm/sql-protobuf.png)](https://nodei.co/npm/sql-protobuf/)
-
-Parsing SQL with regex has been called 'almost impossible' -- but I like to think we can cover over 90% of the cases. There might be bugs. If this has trouble with a functioning SQL CREATE TABLE statement, let's try to fix it.
-
-```
-$ npm install -g sql-protobuf
-```
-
-Yes, this successfully handles:
-  * Multiple CREATE TABLE statements in one file
-  * NOT NULL
-  * " and ` denotations for variable names
-  * bigint
-  * DEFAULT
-  * IF NOT EXISTS
-  * case inSenSitIvIty
-  * Statement defined in one line
-
-No, this doesn't handle:
-  * Anything other than CREATE TABLE statements
-  * Backwards compatibility
-  * Non-basic SQL types
-
-If the SQL type isn't found, it'll default to Protocol Buffers `string` type.
 
 ### CLI usage
 
 ```
-$ sql-protobuf [input-file]
+$ mysql-protobuf [input-file]
 <...proto output...>
 ```
 
 ### Example
 
 ```
-$ sql-protobuf schema.sql > schema.proto
-```
+$ mysql-protobuf schema.sql > schema.proto
 
-schema.sql
-```
-CREATE TABLE "pluto" (
-  "boroughtext" text,
-  "block" integer,
-  "lot" bigint,
-  "cd" date NOT NULL,
-);
-```
 
-schema.proto
-```
-syntax = "proto2";
+cd tests
 
-message pluto {
-  optional string boroughtext = 1;
-  optional int32 block = 2;
-  optional int64 lot = 3;
-  required string cd = 4;
- }
+→ ./cli.js test.sql
+
+
+
+syntax = "proto3";
+
+message core {
+  int32 uid = 1;
+  int32 cid = 2;
+  int32 no = 3;
+  string nickname = 4;
+  int32 gender = 5;
+  int32 authed = 6;
+  int32 verified = 7;
+  string portrait = 8;
+  int32 status = 9;
+  string dateline = 10;
+}
+
+
 ```
 
 ### JS usage
 ```
-var convert = require('sql-protobuf')
+var convert = require('mysql-protobuf')
 var file = fs.readFileSync('schema.sql').toString()
 console.log(convert(file))
 ```
-
-### TODO
-
-Need more example sql schemas

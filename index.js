@@ -19,7 +19,7 @@ module.exports = function (data) {
   var schemas = data.split('\n\n')
 
   var result = {
-    syntax: 2,
+    syntax: 3,
     package: null,
     enums: [],
     messages: []
@@ -33,10 +33,11 @@ module.exports = function (data) {
       result.messages.push(Message(tableName, fields))
     }
   })
+
   return protobuf.stringify(result)
 }
 
-function Message (name, fields) {
+function Message(name, fields) {
   var message = {
     name: name,
     enums: [],
@@ -45,37 +46,84 @@ function Message (name, fields) {
   }
 
   var lines = fields.split(/,[$|\"|\`|\'|\s+]/i);
+
   var tag = 0
-  message.fields = lines.map(function (line) {
+
+  var newLines = [];
+  // 过滤 line
+  for (var v in lines) {
+    if (lines[v].indexOf('PRIMARY') > 0) {
+      continue;
+    }
+    if (lines[v].indexOf('UNIQUE') > 0) {
+      continue;
+    }
+    if (lines[v].indexOf('KEY') > 0) {
+      continue;
+    }
+    if (lines[v].indexOf('`') === -1) {
+      continue;
+    }
+    var temps = lines[v].trim().split(/\s+/)
+    if (temps.length <= 1) {
+      continue;
+    }
+
+    newLines.push(lines[v]);
+  }
+
+  message.fields = newLines.map(function (line) {
     tag += 1
     return Field(line, tag)
-  })
+  });
+
   return message
 }
 
-function Field (data, tag) {
+function Field(data, tag) {
   var field = {
     name: null,
     type: null,
     tag: tag,
-    options: {},
-    repeated: false,
-    required: false
+    repeated: false
   }
 
   var tokens = data.trim().split(/\s+/)
+
+  //console.log(tokens);
+
   field.name = normalize(tokens[0])
-  field.type = mappings[tokens[1].trim()] || 'string'
-  if (data.match(/.*NOT\s+NULL.*/i)) {
-    field.required = true
+
+  // mysql
+  var imap = '';
+  if (typeof (tokens[1]) != "undefined") {
+    if (tokens[1].indexOf('int') >= 0) {
+      imap = 'int32';
+    }
+    if (tokens[1].indexOf('long') >= 0) {
+      imap = 'int64';
+    }
+    if (tokens[1].indexOf('datetime') >= 0 || tokens[1].indexOf('timestamp') >= 0) {
+      imap = 'string';
+    }
+    if (tokens[1].indexOf('varchar') >= 0 ||  tokens[1].indexOf('text') >= 0) {
+      imap = 'string';
+    }
   }
-  var default_match = data.match(/.*DEFAULT\s+(\S+).*/i)
-  if (default_match) {
-    field.options.default = default_match[1]
-  }
+
+  field.type = imap || 'string'
+
+  // if (data.match(/.*NOT\s+NULL.*/i)) {
+  //   field.required = true
+  // }
+  // var default_match = data.match(/.*DEFAULT\s+(\S+).*/i)
+  // if (default_match) {
+  //   field.options.default = default_match[1]
+  // }
+
   return field
 }
 
-function normalize (string) {
+function normalize(string) {
   return string.replace(/['`"]/ig, '')
 }
