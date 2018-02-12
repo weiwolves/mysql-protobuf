@@ -103,7 +103,7 @@ function Field(data, tag) {
     if (tokens[1].indexOf('int') >= 0) {
       for (var v in tokens) {
         if (tokens[v] == 'unsigned') {
-          imap = 'uin32';
+          imap = 'uint32';
         }
       }
       imap = imap || 'int32';
