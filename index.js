@@ -67,7 +67,7 @@ function Message(name, fields) {
       continue;
     }
     var temps = lines[v].trim().split(/\s+/)
-    if (temps.length <= 1 || temps.indexOf(")") > 0) {
+    if (temps.length <= 1 || temps[0].indexOf(")") > 0) {
       continue;
     }
 
