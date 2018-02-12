@@ -67,7 +67,7 @@ function Message(name, fields) {
       continue;
     }
     var temps = lines[v].trim().split(/\s+/)
-    if (temps.length <= 1) {
+    if (temps.length <= 1 || temps.indexOf(")") > 0) {
       continue;
     }
 
@@ -122,11 +122,11 @@ function Field(data, tag) {
       imap = 'string';
     }
 
-    if (tokens[1].indexOf('float') >= 0 ) {
+    if (tokens[1].indexOf('float') >= 0) {
       imap = 'float';
     }
 
-    if (tokens[1].indexOf('double') >= 0 ) {
+    if (tokens[1].indexOf('double') >= 0) {
       imap = 'double';
     }
 
