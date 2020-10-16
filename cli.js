@@ -11,5 +11,5 @@ fs.writeFile(data.name + ".proto", data.protobuf, function (err) {
   if (err) {
     return console.log(err);
   }
-  console.log("The file was saved!");
+  console.log("文件保存在 -> " + data.name + ".proto");
 });

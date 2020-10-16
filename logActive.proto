@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package logActive;
+
+message Log_activeModel {
+  int32 id = 1;
+  string appid = 2;
+  int32 cid = 3;
+  int32 uid = 4;
+  int32 type = 5;
+  int32 num = 6;
+  string date = 7;
+}
