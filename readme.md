@@ -4,7 +4,6 @@
 npm install mysql-protobuf -g
 ```
 
-
 ### CLI usage Example
 
 ```
@@ -25,8 +24,11 @@ $ mysql-protobuf schema.sql > schema.proto
 ```
 
 ### JS usage
+
 ```
 var convert = require('mysql-protobuf')
 var file = fs.readFileSync('schema.sql').toString()
 console.log(convert(file))
 ```
+
+npm publish

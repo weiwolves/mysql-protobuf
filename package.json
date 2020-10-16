@@ -1,6 +1,6 @@
 {
   "name": "mysql-protobuf",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "Convert MySQL CREATE TABLE statements to .proto (Proto Buffers)",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/graceshare/sql-protobuf.git"
+    "url": "https://github.com/cute-angelia/mysql-protobuf"
   },
-  "homepage": "https://github.com/graceshare/sql-protobuf",
+  "homepage": "https://github.com/cute-angelia/mysql-protobuf",
   "dependencies": {
     "protocol-buffers-schema": "git+https://github.com/graceshare/protocol-buffers-schema.git",
     "tape": "^4.2.0"

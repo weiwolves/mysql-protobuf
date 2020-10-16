@@ -1,4 +1,5 @@
 var protobuf = require('protocol-buffers-schema')
+
 var mappings = {
   'bigint': 'int64',
   'integer': 'int32',
@@ -32,11 +33,22 @@ module.exports = function (data) {
 
       var fields = schema.substring(schema.indexOf('(')).trim()
       fields = fields.replace(/^\(/g, '').replace(/\);?$/g, '')
-      result.messages.push(Message(tableName, fields))
+
+      result.package = toHump(tableName).replace(/^\S/, s => s.toLowerCase())
+      result.messages.push(Message(tableName + "Model", fields))
     }
   })
 
-  return protobuf.stringify(result)
+  return {
+    "protobuf": protobuf.stringify(result),
+    "name": result.package,
+  }
+}
+
+function toHump(name) {
+  return name.replace(/\_(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  });
 }
 
 function Message(name, fields) {

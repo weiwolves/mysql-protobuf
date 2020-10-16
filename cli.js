@@ -4,5 +4,12 @@ var convert = require('./')
 var fs = require('fs')
 
 var file = args[0]
-var protobuf = convert(fs.readFileSync(file).toString())
-process.stdout.write(protobuf)
+var data = convert(fs.readFileSync(file).toString())
+process.stdout.write(data.protobuf)
+
+fs.writeFile(data.name + ".proto", data.protobuf, function (err) {
+  if (err) {
+    return console.log(err);
+  }
+  console.log("文件保存在 -> " + data.name + ".proto");
+});
