@@ -1,4 +1,5 @@
 var protobuf = require('protocol-buffers-schema')
+const camelCase = require('camelcase');
 
 var mappings = {
   'bigint': 'int64',
@@ -30,6 +31,7 @@ module.exports = function (data) {
     if (match) {
       var tableName = normalize(match[2])
       tableName = tableName.substring(0, 1).toUpperCase() + tableName.substring(1);
+	  tableName = camelCase(tableName, {pascalCase: true});
 
       var fields = schema.substring(schema.indexOf('(')).trim()
       fields = fields.replace(/^\(/g, '').replace(/\);?$/g, '')

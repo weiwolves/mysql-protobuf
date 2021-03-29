@@ -1,5 +1,5 @@
 {
-  "name": "mysql-protobuf",
+  "name": "mysql-protobuf-camel",
   "version": "1.0.14",
   "description": "Convert MySQL CREATE TABLE statements to .proto (Proto Buffers)",
   "main": "index.js",
@@ -7,15 +7,32 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "mysql-protobuf": "cli.js"
+    "mysql-protobuf-camel": "cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cute-angelia/mysql-protobuf"
+    "url": "git+https://github.com/weiwolves/mysql-protobuf.git"
   },
   "homepage": "https://github.com/cute-angelia/mysql-protobuf",
   "dependencies": {
+    "camelcase": "^6.2.0",
     "protocol-buffers-schema": "git+https://github.com/graceshare/protocol-buffers-schema.git",
     "tape": "^4.2.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/weiwolves/mysql-protobuf/issues"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "lib-manager": "0.0.7"
+  },
+  "keywords": [
+    "mysql",
+    "protobuf",
+    "camel"
+  ],
+  "author": "nil",
+  "license": "ISC"
 }
